@@ -9,5 +9,3 @@ A simple and responsive music player built with HTML, CSS, and JavaScript.
 - Responsive design
 - Easy to customize
 
-## Preview
-![Music Player Screenshot](https://anhlove.github.io/Music-Player/assets/your-screenshot.png)
