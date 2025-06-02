@@ -1,0 +1,13 @@
+{
+    "folders": [
+		{
+			"path": "../../../../Học HTML/AnhLove-shop"
+		},
+		{
+			"path": "../.."
+		}
+	],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "Music Player"
+    }
+}
