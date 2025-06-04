@@ -15,9 +15,6 @@ A simple and responsive music player built with HTML, CSS, and JavaScript.
 - Scroll to active song in playlist
 - Save user settings (repeat/random) using `localStorage`
 
-## Screenshot
-![Screenshot](./assets/img/demo.png)
-
 ## How to Use
 1. Clone this repository:
    ```bash
