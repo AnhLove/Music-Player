@@ -53,7 +53,7 @@ body {
 .dashboard {
     padding: 20px 20px 16px;
     background-color: var(--card-bg);
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     max-width: 480px;
