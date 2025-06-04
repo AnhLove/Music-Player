@@ -154,24 +154,20 @@ const app = {
 
         // Khi tiến độ bài hát thay đổi
         audio.ontimeupdate = function () {
-            if (audio.duration) {
-                // Cập nhật thanh tiến trình
-                const progressPercent = Math.floor((audio.currentTime / audio.duration) * 100);
-                progress.value = progressPercent;
-
-                // Cập nhật thời gian nhạc
-                const currentMinutes = Math.floor(audio.currentTime / 60);
-                const currentSeconds = Math.floor(audio.currentTime % 60);
-                const durationMinutes = Math.floor(audio.duration / 60);
-                const durationSeconds = Math.floor(audio.duration % 60);
-
-                const formatTime = (min, sec) => `${min}:${sec < 10 ? '0' + sec : sec}`;
-                timeDisplay.textContent = `${formatTime(currentMinutes, currentSeconds)} / ${formatTime(
-                    durationMinutes,
-                    durationSeconds
-                )}`;
-            }
+            if (!audio.duration || isNaN(audio.duration)) return;
+        
+            const progressPercent = Math.floor((audio.currentTime / audio.duration) * 100);
+            progress.value = progressPercent;
+        
+            const currentMinutes = Math.floor(audio.currentTime / 60);
+            const currentSeconds = Math.floor(audio.currentTime % 60);
+            const durationMinutes = Math.floor(audio.duration / 60);
+            const durationSeconds = Math.floor(audio.duration % 60);
+        
+            const formatTime = (min, sec) => `${min}:${sec < 10 ? '0' + sec : sec}`;
+            timeDisplay.textContent = `${formatTime(currentMinutes, currentSeconds)} / ${formatTime(durationMinutes, durationSeconds)}`;
         };
+
 
         // Xử lý khi tua song
         progress.oninput = function (e) {
@@ -234,9 +230,14 @@ const app = {
             }
         };
 
-        volumeControl.oninput = function (e) {
+        volumeControl.addEventListener('input', function (e) {
             audio.volume = e.target.value;
-        };
+        });
+        
+        volumeControl.addEventListener('change', function (e) {
+            audio.volume = e.target.value;
+        });
+
 
         // Lắng nghe hành vi click vào playlist
         playlist.onclick = function (e) {
@@ -255,6 +256,12 @@ const app = {
                 }
             }
         };
+
+        ['click', 'touchstart'].forEach(eventName => {
+            document.addEventListener(eventName, () => {
+                audio.play().then(() => audio.pause()).catch(() => {});
+            }, { once: true });
+        });
     },
     scrollToActiveSong: function () {
         setTimeout(() => {
